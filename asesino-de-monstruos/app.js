@@ -24,15 +24,6 @@ new Vue({
             this.turnos = [];
 
         },
-        atacar: function (rangoRec) {
-            let damage = this.calcularHeridas(rangoRec);
-            this.saludMonstruo -= damage;
-            this.registrarEvento({
-                esJugador: true,
-                text: `Jugador atacó por ${damage}% de vida`
-            });
-        },
-
         realizarTurno: function(actionPlayer) {
 
             // Always player first
@@ -49,7 +40,14 @@ new Vue({
                 this.terminarPartida();
             }
         },
-
+        atacar: function (rangoRec) {
+            let damage = this.calcularHeridas(rangoRec);
+            this.saludMonstruo -= damage;
+            this.registrarEvento({
+                esJugador: true,
+                text: `Jugador atacó por ${damage}% de vida`
+            });
+        },
         ataqueLeve: function() {
             this.atacar(this.rangoAtaque);
         },
@@ -58,6 +56,14 @@ new Vue({
             this.atacar(this.rangoAtaqueEspecial);
         },
 
+        ataqueDelMonstruo: function () {
+            let damage = this.calcularHeridas(this.rangoAtaqueDelMonstruo);
+            this.saludJugador -= damage;
+            this.registrarEvento({
+                esJugador: false,
+                text: `Monstruo atacó por ${damage}% de vida`
+            });
+        },
         curar: function () {
             let heal = this.calcularHeridas(this.rangoCura);
 
@@ -94,14 +100,7 @@ new Vue({
 
         },
 
-        ataqueDelMonstruo: function () {
-            let damage = this.calcularHeridas(this.rangoAtaqueDelMonstruo);
-            this.saludJugador -= damage;
-            this.registrarEvento({
-                esJugador: false,
-                text: `Monstruo atacó por ${damage}% de vida`
-            });
-        },
+
 
         calcularHeridas: function (rango) {
             
