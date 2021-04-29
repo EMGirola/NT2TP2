@@ -46,7 +46,6 @@ new Vue({
             winner = this.verificarGanador();
 
             if(winner) {
-                console.log("Hay ganador wey!");
                 this.terminarPartida();
             }
         },
@@ -109,7 +108,6 @@ new Vue({
             return Math.round(Math.random() * (rango[1] - rango[0]) + rango[0]);
         },
         verificarGanador: function () {
-            console.log(this.saludJugador <= 0 || this.saludMonstruo <= 0)
             return this.saludJugador <= 0 || this.saludMonstruo <= 0;
         },
         cssEvento(turno) {
