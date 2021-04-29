@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Asesino de Monstruos</title>
+    <meta charset="utf-8"/>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <script src="https://kit.fontawesome.com/7e69a7bbf0.js"></script>
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center"><i class="fas fa-angry fa-2x"></i></h1>
+            <div class="curarthbar">
+                <div class="curarthbar text-center" 
+                style="background-color: goldenrod; margin: 0; color: white;"
+                :style="{width: saludJugador + '%'}">
+                    {{ getSalud(saludJugador) }} 
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center"><i class="fas fa-pastafarianism fa-2x"></i></h1>
+            <div class="curarthbar">
+                <div class="curarthbar text-center" 
+                    style="background-color: rgb(3, 110, 12); margin: 0; color: white;"
+                    :style="{width: saludMonstruo + '%'}"
+                    >
+                    {{ getSalud(saludMonstruo) }} 
+                </div>
+            </div></div>
+    </section>
+    <section class="row controls" v-if="!hayUnaPartidaEnJuego">
+        <div class="small-12 columns">
+            <button id="start-game"  @click="empezarPartida">
+                EMPEZAR JUEGO NUEVO</button>
+        </div>
+    </section>
+    <section class="row controls" v-else>
+        <div class="small-12 columns">
+            <button id="atacar" @click="realizarTurno(ataqueLeve)">ATACAR</button>
+            <button id="ataque-especial" @click="realizarTurno(ataqueEspecial)">ATAQUE ESPECIAL</button>
+            <button id="curar" @click="realizarTurno(curar)">CURAR</button>
+            <button id="rendirse" @click="terminarPartida">RENDIRSE</button>
+        </div>
+    </section>
+    <section class="row log" v-if="turnos.length > 0">
+        <div class="small-12 columns">
+
+            <transition-group name="list" tag="ul">
+                <li 
+                v-for="(turno,index) in turnos"
+                :key="turno.indice"
+                :class="cssEvento(turno)"
+                :style="{'text-align': turno.esJugador?'left':'right','opacity':index <=1?1:0.3}">
+                    {{ turno.text }}
+                </li>
+            </transition-group>
+            
+        </div>
+    </section>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
