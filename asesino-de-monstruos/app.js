@@ -79,19 +79,19 @@ new Vue({
         },
         terminarPartida: function () {
             this.hayUnaPartidaEnJuego = false;
+            let player = false;
+            let texto = "Monstruo le ganó al jugador";
 
             if (this.saludJugador >= 1 && this.saludMonstruo <= 0) {
-                this.registrarEvento({
-                    esJugador: true,
-                    text: "Jugador le ganó al monstruo"
-                });
+                texto = "Jugador le ganó al monstruo"
+                player = true;
             } 
-            else {
-                this.registrarEvento({
-                    esJugador: false,
-                    text: "Monstruo le ganó al jugador"
-                });
-            }
+
+            this.registrarEvento({
+                esJugador: player,
+                text: texto
+            });
+
         },
 
         ataqueDelMonstruo: function () {
